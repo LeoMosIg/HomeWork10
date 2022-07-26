@@ -1,26 +1,15 @@
-import json
-
 from flask import Flask
+
+from utils import get_candidates, format_candidates
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def main():
-    with open('candidates.json', 'r', encoding='UTF-8') as candidates:
-        candidates_list = json.load(candidates)
+    candidates_list = get_candidates('candidates.json')
 
-    result = '<pre>'
-    for candidate in candidates_list:
-        result += (
-            '<pre>'
-            f'Имя кандидата - {candidate["name"]}\n'
-            f'Позиция кандидата - {candidate["position"]}\n'
-            f'Навыки через запятую - {candidate["skills"]}\n'
-        )
-
-    result += '</pre>'
-    return result
+    return format_candidates(candidates_list)
 
 
 @app.route('/candidates/<candidate_id>')

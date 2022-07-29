@@ -5,6 +5,7 @@ from utils import get_candidates, format_candidates, get_candidate_by_id, get_ca
 app = Flask(__name__)
 
 
+# Маршрут для главной страницы
 @app.route('/')
 def main():
     candidates_list = get_candidates('candidates.json')
@@ -12,6 +13,7 @@ def main():
     return format_candidates(candidates_list)
 
 
+# Маршрут для страницы кандидата
 @app.route('/candidates/<int:candidate_id>')
 def page_candidate(candidate_id):
     candidates_list = get_candidates('candidates.json')
@@ -23,6 +25,7 @@ def page_candidate(candidate_id):
     return result + format_candidates([candidate])
 
 
+# Маршрут страницы с фильтрацией по навыкам
 @app.route('/skills/<skill>')
 def skills(skill):
     candidates_list = get_candidates('candidates.json')
